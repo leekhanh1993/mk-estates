@@ -1,153 +1,390 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { addUser } from './../../actions/userActions'
+import { addUser, getUsers } from '../../actions/userActions'
+
+import {
+    Col,
+    Modal,
+    ModalBody,
+    ModalHeader,
+    ModalTitle,
+    ModalFooter,
+    Form,
+    FormControl,
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+    Button
+} from 'react-bootstrap'
 
 class AddUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: '',
-            displayName: '',
-            password: '',
-            confirmPassword: ''
+            show: false,
+            userName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            displayName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            password: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            confirmPassword: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
         }
     }
-    componentWillMount() {
-        this.setState({
-            userName: '',
-            displayName: '',
-            password: '',
-            confirmPassword: ''
-        })
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.showAddUser !== 0) {
+            this.handleShow();
+        }
     }
-
     onChange(e) {
         var target = e.target;
         var name = target.name;
         var value = target.value;
-        this.setState({
-            [name]: value
-        })
+        var newState = {
+            ...this.state,
+            [name]: {
+                ...this.state[name],
+                value
+            }
+        }
+        this.setState(newState)
     }
     clearForm() {
+        var newState = {
+            ...this.state,
+            userName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            displayName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            password: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            confirmPassword: {
+                value: '',
+                isValid: true,
+                message: ''
+            }
+        }
+        this.setState(newState)
+    }
+    handleClose() {
         this.setState({
-            userName: '',
-            displayName: '',
-            password: '',
-            confirmPassword: ''
+            show: false
         })
     }
-    createUser() {
+    handleShow() {
+        var newState = {
+            ...this.state,
+            show: true,
+            userName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            displayName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            password: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            confirmPassword: {
+                value: '',
+                isValid: true,
+                message: ''
+            }
+        }
+        this.setState(newState)
+    }
+
+    onSubmit() {
         var { userName, displayName, password, confirmPassword } = this.state;
-        if (userName && displayName && password && confirmPassword && (password === confirmPassword)) {
+        var { users } = this.props.users;
+
+        //Clear State
+        var newState = {
+            ...this.state,
+            userName: {
+                value: this.state.userName.value,
+                isValid: true,
+                message: ''
+            },
+            displayName: {
+                value: this.state.displayName.value,
+                isValid: true,
+                message: ''
+            },
+            password: {
+                value: this.state.password.value,
+                isValid: true,
+                message: ''
+            },
+            confirmPassword: {
+                value: this.state.confirmPassword.value,
+                isValid: true,
+                message: ''
+            }
+        }
+        this.setState(newState)
+
+        //check user name is avalable or not
+        var availablUserName = [];
+        for (let index = 0; index < users.length; index++) {
+            const user = users[index];
+            availablUserName.push(user.userName)
+        }
+
+        //Validation for User Name
+        const checkUserName = (newUserName) => {
+            var isAvailableUser = availablUserName.includes(newUserName) ? true : false
+            if (newUserName === '') {
+                this.setState({
+                    userName: {
+                        value: this.state.userName.value,
+                        isValid: false,
+                        message: 'User name can not be blanked!!!!'
+                    }
+                })
+            } else if (isAvailableUser) {
+                this.setState({
+                    userName: {
+                        value: this.state.userName.value,
+                        isValid: false,
+                        message: 'Your user name is avalable!!!!'
+                    }
+                })
+            } else {
+                return true
+            }
+        }
+        var resultCheckUserName = checkUserName(userName.value)
+
+        //Validation for Display Name
+        const checkDisplayName = (newDisplay) => {
+            if (newDisplay === '') {
+                this.setState({
+                    displayName: {
+                        value: this.state.displayName.value,
+                        isValid: false,
+                        message: 'Display name can not be blanked!!!!'
+                    }
+                })
+            } else {
+                return true
+            }
+        }
+        var resultCheckDisplayName = checkDisplayName(displayName.value)
+
+        //Validation for Password
+        const checkPassword = (newPassword) => {
+            if (newPassword === '') {
+                this.setState({
+                    password: {
+                        value: this.state.password.value,
+                        isValid: false,
+                        message: 'Password can not be blanked!!!!'
+                    }
+                })
+            } else {
+                return true
+            }
+        }
+        var resultCheckPassword = checkPassword(password.value)
+
+        //Validation for Password
+        const checkConfirmPassword = (newConfirmPassword) => {
+            if (newConfirmPassword === '') {
+                this.setState({
+                    confirmPassword: {
+                        value: this.state.confirmPassword.value,
+                        isValid: false,
+                        message: 'Confirm password can not be blanked!!!!'
+                    }
+                })
+            } else if (newConfirmPassword !== this.state.password.value) {
+                this.setState({
+                    confirmPassword: {
+                        value: this.state.confirmPassword.value,
+                        isValid: false,
+                        message: 'The password and its confirm are not the same!!!!'
+                    }
+                })
+            } else {
+                return true
+            }
+        }
+        var resultCheckConfirmPassword = checkConfirmPassword(confirmPassword.value)
+
+        if (resultCheckUserName && resultCheckDisplayName && resultCheckPassword && resultCheckConfirmPassword) {
             var newUser = {
-                userName,
-                displayName,
-                password
+                userName: userName.value,
+                displayName: displayName.value,
+                password: password.value
             }
             this.props.addUser(newUser)
-            alert('Add User Successful!!')
-            this.clearForm();
+            alert("Create User Successful!!!")
+            this.setState({
+                show: false
+            })
+
         }
-    }
-    closeRegUser() {
-        this.clearForm();
     }
     render() {
         return (
-            <div>
-                {/* Modal */}
-                <div id="addUser" className="modal fade" role="dialog">
-                    <div className="modal-dialog">
-                        {/* Modal content*/}
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h4 className="modal-title text-center">Create User</h4>
-                            </div>
-                            <div className="modal-body">
-                                <form noValidate onSubmit={this.createUser.bind(this)} id="registerUserForm" className="form-horizontal">
-                                    <div className="form-group">
-                                        <label className="col-sm-5 control-label">User Name</label>
-                                        <div className="col-sm-5">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="User Name"
-                                                name="userName"
-                                                value={this.state.userName}
-                                                onChange={this.onChange.bind(this)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="col-sm-5 control-label">Display Name</label>
-                                        <div className="col-sm-5">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Display Name"
-                                                name="displayName"
-                                                value={this.state.displayName}
-                                                onChange={this.onChange.bind(this)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="col-sm-5 control-label">Password</label>
-                                        <div className="col-sm-5">
-                                            <input
-                                                type="password"
-                                                className="form-control"
-                                                placeholder="Password"
-                                                name="password"
-                                                value={this.state.password}
-                                                onChange={this.onChange.bind(this)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="col-sm-5 control-label">Confirm Password</label>
-                                        <div className="col-sm-5">
-                                            <input
-                                                type="password"
-                                                className="form-control"
-                                                placeholder="Confirm Password"
-                                                name="confirmPassword"
-                                                value={this.state.confirmPassword}
-                                                onChange={this.onChange.bind(this)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <div className="col-sm-5 col-sm-offset-5">
-                                            <button
-                                                type="submit"
-                                                className="btn btn-success"
-                                                style={{ marginRight: 10 }}
-                                            >Create</button>
-                                            <button
-                                                type="button"
-                                                onClick={this.closeRegUser.bind(this)}
-                                                className="btn btn-danger"
-                                                data-dismiss="modal"
-                                            // id='closeRegisterUser'
-                                            >Close</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+            <Modal
+                backdrop='static'
+                show={this.state.show}
+                onHide={this.handleClose.bind(this)}
+            >
+                <ModalHeader>
+                    <ModalTitle bsClass="text-center">
+                        Create User
+                        </ModalTitle>
+                </ModalHeader>
+                <ModalBody>
+                    <Form horizontal>
+                        {/* User Name */}
+                        <FormGroup
+                            id="userName"
+                            validationState={this.state.userName.isValid
+                                ? null
+                                : 'error'}
+                        >
+                            <Col sm={5} componentClass={ControlLabel}>User Name</Col>
+                            <Col sm={5}>
+                                <FormControl
+                                    type="input"
+                                    value={this.state.userName.value}
+                                    name="userName"
+                                    placeholder='User Name'
+                                    onChange={this.onChange.bind(this)}
+                                />
+                                <FormControl.Feedback />
+                                {this.state.userName.isValid
+                                    ? ''
+                                    : <HelpBlock>{this.state.userName.message}</HelpBlock>
+                                }
+                            </Col>
+                        </FormGroup>
 
-                        </div>
+                        {/* Display Name */}
+                        <FormGroup
+                            id="displayName"
+                            validationState={this.state.displayName.isValid
+                                ? null
+                                : 'error'}
+                        >
+                            <Col sm={5} componentClass={ControlLabel}>Display Name</Col>
+                            <Col sm={5}>
+                                <FormControl
+                                    type="input"
+                                    value={this.state.displayName.value}
+                                    name="displayName"
+                                    placeholder='Display Name'
+                                    onChange={this.onChange.bind(this)}
+                                />
+                                <FormControl.Feedback />
+                                {this.state.displayName.isValid
+                                    ? ''
+                                    : <HelpBlock>{this.state.displayName.message}</HelpBlock>
+                                }
+                            </Col>
+                        </FormGroup>
+
+                        {/* Passoword*/}
+                        <FormGroup
+                            id="password"
+                            validationState={this.state.password.isValid
+                                ? null
+                                : 'error'}
+                        >
+                            <Col sm={5} componentClass={ControlLabel}>Password</Col>
+                            <Col sm={5}>
+                                <FormControl
+                                    type="password"
+                                    value={this.state.password.value}
+                                    name="password"
+                                    placeholder='Password'
+                                    onChange={this.onChange.bind(this)}
+                                />
+                                <FormControl.Feedback />
+                                {this.state.password.isValid
+                                    ? ''
+                                    : <HelpBlock>{this.state.password.message}</HelpBlock>
+                                }
+                            </Col>
+                        </FormGroup>
+
+                        {/* Confirm password*/}
+                        <FormGroup
+                            id="confirmPassword"
+                            validationState={this.state.confirmPassword.isValid
+                                ? null
+                                : 'error'}
+                        >
+                            <Col sm={5} componentClass={ControlLabel}>Confirm Password</Col>
+                            <Col sm={5}>
+                                <FormControl
+                                    type="password"
+                                    value={this.state.confirmPassword.value}
+                                    name="confirmPassword"
+                                    placeholder='Confirm Password'
+                                    onChange={this.onChange.bind(this)}
+                                />
+                                <FormControl.Feedback />
+                                {this.state.confirmPassword.isValid
+                                    ? ''
+                                    : <HelpBlock>{this.state.confirmPassword.message}</HelpBlock>
+                                }
+                            </Col>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+                <ModalFooter>
+                    <div className="text-center">
+                        <Button
+                            bsStyle="success"
+                            onClick={this.onSubmit.bind(this)}
+                        >Create</Button>
+                        <Button
+                            bsStyle="danger"
+                            onClick={this.handleClose.bind(this)}
+                        >Close</Button>
                     </div>
-                </div>
-            </div>
+                </ModalFooter>
+            </Modal>
         );
     }
 }
+
 const mapStateToProps = state => {
     return {
-
+        users: state.users
     }
 }
 
-export default connect(mapStateToProps, { addUser })(AddUser);
+export default connect(mapStateToProps, { addUser, getUsers })(AddUser);

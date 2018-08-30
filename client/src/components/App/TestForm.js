@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { addUser, getUsers } from './../../actions/userActions'
+import { addUser, getUsers } from '../../actions/userActions'
 
+import {
+    Col,
+    Modal,
+    ModalBody,
+    ModalHeader,
+    ModalTitle,
+    ModalFooter,
+    Form,
+    FormControl,
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+    Button
+} from 'react-bootstrap'
 
 class TestForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            show: false,
             userName: {
                 value: '',
                 isValid: true,
@@ -27,7 +42,6 @@ class TestForm extends Component {
                 isValid: true,
                 message: ''
             },
-            isFormValid: ""
         }
     }
     onChange(e) {
@@ -40,24 +54,72 @@ class TestForm extends Component {
                 ...this.state[name],
                 value
             }
-
         }
         this.setState(newState)
     }
     clearForm() {
+        var newState = {
+            ...this.state,
+            userName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            displayName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            password: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            confirmPassword: {
+                value: '',
+                isValid: true,
+                message: ''
+            }
+        }
+        this.setState(newState)
+    }
+    handleClose() {
         this.setState({
-            userName: '',
-            displayName: '',
-            password: '',
-            confirmPassword: ''
+            show: false
         })
     }
-    componentDidMount() {
-        this.props.getUsers();
+    handleShow() {
+        var newState = {
+            ...this.state,
+            show: true,
+            userName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            displayName: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            password: {
+                value: '',
+                isValid: true,
+                message: ''
+            },
+            confirmPassword: {
+                value: '',
+                isValid: true,
+                message: ''
+            }
+        }
+        this.setState(newState)
     }
 
-    createUser(e) {
-        e.preventDefault();
+    onSubmit() {
+        var { userName, displayName, password, confirmPassword } = this.state;
+        var { users } = this.props.users;
+
         //Clear State
         var newState = {
             ...this.state,
@@ -80,15 +142,9 @@ class TestForm extends Component {
                 value: this.state.confirmPassword.value,
                 isValid: true,
                 message: ''
-            },
-            isFormValid: ''
+            }
         }
         this.setState(newState)
-
-        var { userName, displayName, password, confirmPassword } = this.state;
-        var { users } = this.props.users
-
-
 
         //check user name is avalable or not
         var availablUserName = [];
@@ -178,156 +234,155 @@ class TestForm extends Component {
         }
         var resultCheckConfirmPassword = checkConfirmPassword(confirmPassword.value)
 
-
         if (resultCheckUserName && resultCheckDisplayName && resultCheckPassword && resultCheckConfirmPassword) {
-            this.setState({
-                isFormValid: 'validForm'
-            })
             var newUser = {
                 userName: userName.value,
                 displayName: displayName.value,
                 password: password.value
             }
-            console.log(newUser)
-        }
+            this.props.addUser(newUser)
+            alert("Create User Successful!!!")
+            this.setState({
+                show: false
+            })
 
-        // var { userName, displayName, password, confirmPassword } = this.state;
-        // if (userName && displayName && password && confirmPassword && (password === confirmPassword)) {
-        //     var newUser = {
-        //         userName,
-        //         displayName,
-        //         password
-        //     }
-        //     this.props.addUser(newUser)
-        //     alert('Add User Successful!!')
-        //     this.clearForm();
-        // }
-    }
-    closeRegUser() {
-        this.clearForm();
+        }
     }
     render() {
         return (
             <div className="container">
-                <div>
-                    {/* Trigger the modal with a button */}
-                    <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#testForm">Open Modal</button>
-                    {/* Modal */}
-                    <div id="testForm" className={this.state.isFormValid === '' ? "modal fade" : ('modal fade ' + this.state.isFormValid)} role="dialog">
-                        <div className="modal-dialog">
-                            {/* Modal content*/}
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal">×</button>
-                                    <h4 className="modal-title">Modal Header</h4>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="panel panel-primary">
-                                        <div className="panel-heading">
-                                            <h3 className="panel-title">Test Form</h3>
-                                        </div>
-                                        <div className="panel-body">
-                                            <form id="testFormValidation" onSubmit={this.createUser.bind(this)} className="form-horizontal">
-                                                <div className={this.state.userName.isValid ? "form-group" : "form-group has-error has-feedback"}>
-                                                    <label className="control-label col-sm-5">User Name</label>
-                                                    <div className="col-sm-5">
-                                                        <input
-                                                            id="userName"
-                                                            type="text"
-                                                            className="form-control"
-                                                            placeholder="User Name"
-                                                            name="userName"
-                                                            value={this.state.userName.value}
-                                                            onChange={this.onChange.bind(this)}
-                                                        />
-                                                        {this.state.userName.message !== ''
-                                                            ? [<span className="glyphicon glyphicon-remove form-control-feedback"></span>, <small className="text-danger">{this.state.userName.message}</small>]
-                                                            : ''
-                                                        }
-                                                    </div>
-                                                </div>
-                                                <div className={this.state.displayName.isValid ? "form-group" : "form-group has-error has-feedback"}>
-                                                    <label className="col-sm-5 control-label">Display Name</label>
-                                                    <div className="col-sm-5">
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            placeholder="Display Name"
-                                                            name="displayName"
-                                                            value={this.state.displayName.value}
-                                                            onChange={this.onChange.bind(this)}
-                                                        />
-                                                        {this.state.displayName.message !== ''
-                                                            ? [<span key="1" className="glyphicon glyphicon-remove form-control-feedback"></span>, <small key="2" className="text-danger">{this.state.displayName.message}</small>]
-                                                            : ''
-                                                        }
-                                                    </div>
-                                                </div>
-                                                <div className={this.state.password.isValid ? "form-group" : "form-group has-error has-feedback"}>
-                                                    <label className="col-sm-5 control-label">Password</label>
-                                                    <div className="col-sm-5">
-                                                        <input
-                                                            type="password"
-                                                            className="form-control"
-                                                            placeholder="Password"
-                                                            name="password"
-                                                            value={this.state.password.value}
-                                                            onChange={this.onChange.bind(this)}
-                                                        />
-                                                        {this.state.password.message !== ''
-                                                            ? [<span key="1" className="glyphicon glyphicon-remove form-control-feedback"></span>, <small key="2" className="text-danger">{this.state.password.message}</small>]
-                                                            : ''
-                                                        }
-                                                    </div>
-                                                </div>
-                                                <div className={this.state.confirmPassword.isValid ? "form-group" : "form-group has-error has-feedback"}>
-                                                    <label className="col-sm-5 control-label">Confirm Password</label>
-                                                    <div className="col-sm-5">
-                                                        <input
-                                                            type="password"
-                                                            className="form-control"
-                                                            placeholder="Confirm Password"
-                                                            name="confirmPassword"
-                                                            value={this.state.confirmPassword.value}
-                                                            onChange={this.onChange.bind(this)}
-                                                        />
-                                                        {this.state.confirmPassword.message !== ''
-                                                            ? [<span key="1" className="glyphicon glyphicon-remove form-control-feedback"></span>, <small key="2" className="text-danger">{this.state.confirmPassword.message}</small>]
-                                                            : ''
-                                                        }
-                                                    </div>
-                                                </div>
-                                                <div className="form-group">
-                                                    <div className="col-sm-5 col-sm-offset-5">
-                                                        <button
-                                                            type="submit"
-                                                            className="btn btn-success"
-                                                            id='btnTestForm'
-                                                            style={{ marginRight: 10 }}
-                                                        >Create</button>
-                                                        <button
-                                                            type="button"
-                                                            data-dismiss="modal"
-                                                            className="btn btn-danger"
-                                                        >Close</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <Button
+                    onClick={this.handleShow.bind(this)}
+                    bsStyle="danger"
+                    bsSize="large"
+                >
+                    Create User</Button>
+                <Modal
+                    show={this.state.show}
+                    onHide={this.handleClose.bind(this)}
+                >
+                    <ModalHeader closeButton>
+                        <ModalTitle bsClass="text-center">
+                            Create User
+                        </ModalTitle>
+                    </ModalHeader>
+                    <ModalBody>
+                        <Form horizontal>
+                            {/* User Name */}
+                            <FormGroup
+                                id="userName"
+                                validationState={this.state.userName.isValid
+                                    ? null
+                                    : 'error'}
+                            >
+                                <Col sm={5} componentClass={ControlLabel}>User Name</Col>
+                                <Col sm={5}>
+                                    <FormControl
+                                        type="input"
+                                        value={this.state.userName.value}
+                                        name="userName"
+                                        placeholder='User Name'
+                                        onChange={this.onChange.bind(this)}
+                                    />
+                                    <FormControl.Feedback />
+                                    {this.state.userName.isValid
+                                        ? ''
+                                        : <HelpBlock>{this.state.userName.message}</HelpBlock>
+                                    }
+                                </Col>
+                            </FormGroup>
 
+                            {/* Display Name */}
+                            <FormGroup
+                                id="displayName"
+                                validationState={this.state.displayName.isValid
+                                    ? null
+                                    : 'error'}
+                            >
+                                <Col sm={5} componentClass={ControlLabel}>Display Name</Col>
+                                <Col sm={5}>
+                                    <FormControl
+                                        type="input"
+                                        value={this.state.displayName.value}
+                                        name="displayName"
+                                        placeholder='Display Name'
+                                        onChange={this.onChange.bind(this)}
+                                    />
+                                    <FormControl.Feedback />
+                                    {this.state.displayName.isValid
+                                        ? ''
+                                        : <HelpBlock>{this.state.displayName.message}</HelpBlock>
+                                    }
+                                </Col>
+                            </FormGroup>
+
+                            {/* Passoword*/}
+                            <FormGroup
+                                id="password"
+                                validationState={this.state.password.isValid
+                                    ? null
+                                    : 'error'}
+                            >
+                                <Col sm={5} componentClass={ControlLabel}>Password</Col>
+                                <Col sm={5}>
+                                    <FormControl
+                                        type="password"
+                                        value={this.state.password.value}
+                                        name="password"
+                                        placeholder='Password'
+                                        onChange={this.onChange.bind(this)}
+                                    />
+                                    <FormControl.Feedback />
+                                    {this.state.password.isValid
+                                        ? ''
+                                        : <HelpBlock>{this.state.password.message}</HelpBlock>
+                                    }
+                                </Col>
+                            </FormGroup>
+
+                            {/* Confirm password*/}
+                            <FormGroup
+                                id="confirmPassword"
+                                validationState={this.state.confirmPassword.isValid
+                                    ? null
+                                    : 'error'}
+                            >
+                                <Col sm={5} componentClass={ControlLabel}>Confirm Password</Col>
+                                <Col sm={5}>
+                                    <FormControl
+                                        type="password"
+                                        value={this.state.confirmPassword.value}
+                                        name="confirmPassword"
+                                        placeholder='Confirm Password'
+                                        onChange={this.onChange.bind(this)}
+                                    />
+                                    <FormControl.Feedback />
+                                    {this.state.confirmPassword.isValid
+                                        ? ''
+                                        : <HelpBlock>{this.state.confirmPassword.message}</HelpBlock>
+                                    }
+                                </Col>
+                            </FormGroup>
+                        </Form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <div className="text-center">
+                            <Button
+                                bsStyle="success"
+                                onClick={this.onSubmit.bind(this)}
+                            >Create</Button>
+                            <Button
+                                bsStyle="danger"
+                                onClick={this.handleClose.bind(this)}
+                            >Close</Button>
+                        </div>
+                    </ModalFooter>
+                </Modal>
+            </div>
         );
     }
 }
+
 const mapStateToProps = state => {
     return {
         users: state.users

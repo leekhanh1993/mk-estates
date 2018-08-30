@@ -7,8 +7,14 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayName: ''
+            displayName: '',
+            showAddUser: 0
         }
+    }
+    showAddUser(){
+        this.setState({
+            showAddUser: this.state.showAddUser + 1
+        })
     }
 
     setMainLogin(displayName, id, isLogIn) {
@@ -56,11 +62,12 @@ class Navigation extends Component {
                 ,
 
                 <li key="2" className="pull-right">
-                    <AddUser />
+                    <AddUser showAddUser={this.state.showAddUser} />
                     <a
-                        id="openRegisterUser"
-                        data-toggle="modal"
-                        data-target="#addUser"
+                    onClick={this.showAddUser.bind(this)}
+                        // id="openRegisterUser"
+                        // data-toggle="modal"
+                        // data-target="#addUser"
                         style={{ cursor: 'pointer' }}
                     ><span className="glyphicon glyphicon-plus" /> Register</a>
                 </li>
