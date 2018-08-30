@@ -37,7 +37,7 @@ class DetailPages extends Component {
     }
     console.log(nameUser)
     return (
-      <div className="container-fluid" style={{ paddingTop: 10 }}>
+      <div className="container-fluid" style={{ paddingTop: 40 }}>
         {/* Full Picture */}
         <div><div className="row">
           {/* Carousel */}

@@ -8,6 +8,7 @@ import EditProject from '../Project/EditProject';
 import HomePage from '../Homepage/HomePage';
 import DetailPages from '../DetailPages/DetailPages';
 import TestForm from '../App/TestForm';
+import Contact from '../Contact/Contact';
 
 
 class RouterUrl extends Component {
@@ -25,6 +26,7 @@ class RouterUrl extends Component {
                     <Route path="/testform" component={TestForm} />
                     <Route path="/home" component={HomePage}/>
                     <Route path="/detail/:_id" component={DetailPages}/>
+                    <Route path="/contact" component={Contact}/>
                     <Route component={HomePage}/>   
                 </Switch>
             </div>

@@ -80,6 +80,7 @@ class Navigation extends Component {
                             <li><NavLink to="/product">Properties</NavLink> </li>
                             <li><NavLink to="/manageproject">Projects</NavLink></li>
                             <li><NavLink to="/testform">Test Form</NavLink></li>
+                            <li><NavLink to="/contact">Contact</NavLink></li>
                             {controlUser}
                         </ul>
                     </nav>{/* #nav-menu-container */}

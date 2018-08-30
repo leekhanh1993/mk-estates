@@ -29,17 +29,28 @@ class App extends Component {
           
           
           {/* Navigation */}
+         <div style={{paddingBottom:70}} >
           <Navigation
             setMainLogin={(idCurrentUser, isLogIn) => this.setMainLogin(idCurrentUser, isLogIn)}
             isLogIn={this.state.isLogIn} />
+
+            </div>
           {/* Content */}
-          <div className="content">
+          <div id="content">
             <RouterUrl idCurrentUser={this.state.idCurrentUser}/>
           </div>
           {/* Footer */}
+          <div style={{marginBottom:0}} >
+
           <Footer />
+          </div>
+          
+          
         </div>
+        
       </Router>
+      
+      
 
     );
   }

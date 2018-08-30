@@ -44,9 +44,9 @@ class ManageProject extends Component {
         })
         return (
             <div className='manageproject'>
-                <div className="container">
+                <div className="container" >
                     <h1 className='text-center'>Manage Project</h1>
-                    <div className="row" style={{ paddingBottom: 10 }}>
+                    <div className="row" style={{ paddingBottom: 40 }}>
                         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <button
                             data-toggle="modal" 

@@ -49,7 +49,7 @@ class ManageProduct extends Component {
         })
         return (
             <div className="container-fluid" style={{paddingTop:"5%"}}>
-                <div className="row" style={{ paddingBottom: 10 }}>
+                <div className="row" style={{ paddingBottom: 40 }}>
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <a
                             className="btn btn-primary"
