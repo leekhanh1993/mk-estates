@@ -29,7 +29,7 @@ class App extends Component {
           
           
           {/* Navigation */}
-         <div style={{paddingBottom:70}} >
+         <div style={{paddingBottom:80}} >
           <Navigation
             setMainLogin={(idCurrentUser, isLogIn) => this.setMainLogin(idCurrentUser, isLogIn)}
             isLogIn={this.state.isLogIn} />
