@@ -1,0 +1,33 @@
+{
+  "name": "real-estate-portal",
+  "version": "1.0.0",
+  "description": "real-estate-portal",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leekhanh1993/real-estate-portal.git"
+  },
+  "author": "s3694787",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leekhanh1993/real-estate-portal/issues"
+  },
+  "homepage": "https://github.com/leekhanh1993/real-estate-portal#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.6.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.9"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
