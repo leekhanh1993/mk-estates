@@ -79,7 +79,6 @@ class Navigation extends Component {
                             <li><NavLink to="/home">Home</NavLink> </li>
                             <li><NavLink to="/product">Properties</NavLink> </li>
                             <li><NavLink to="/manageproject">Projects</NavLink></li>
-                            <li><NavLink to="/detail">Details</NavLink></li>
                             <li><NavLink to="/testform">Test Form</NavLink></li>
                             {controlUser}
                         </ul>

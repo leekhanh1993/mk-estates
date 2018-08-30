@@ -27,7 +27,7 @@ class ManageProduct extends Component {
                         <img alt="" style={{width: 350, height: 350}} src={ad.imageUrl === '' ? "https://via.placeholder.com/350x350" : ad.imageUrl} />
                         <div className="caption">
                             <h3>{ad.title}</h3>
-                            <p>Area: {ad.area}</p>
+                            <p>Area: {ad.area} m2</p>
                             <p>Number of bedrooms: {ad.numbedrooms}</p>
                             <p>Number of floors: {ad.numfloors}</p>
                             <p>Price: {ad.price} $</p>

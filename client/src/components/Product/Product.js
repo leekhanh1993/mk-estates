@@ -254,7 +254,7 @@ class Product extends Component {
                     <img src={ad.imageUrl} alt={ad.name} style={{ height: 300, width: 350 }} />
                     <div className="caption">
                         <h3>{ad.title}</h3>
-                        <p><b>Area:</b> {ad.area}</p>
+                        <p><b>Area:</b> {ad.area} m2</p>
                         <p><b>Number of bedrooms:</b> {ad.numbedrooms}</p>
                         <p><b>Number of floors:</b> {ad.numfloors}</p>
                         <p><b>Price:</b> {this.format_currency(ad.price)} VND</p>

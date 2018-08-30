@@ -151,9 +151,9 @@ class EditProduct extends Component {
 
                             <div className="row">
                                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                    <label>Area</label>
+                                    <label>Area(m2)</label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         className="form-control"
                                         placeholder="Area"
                                         name="area"

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {getAD} from '../../actions/adActions'
 import {getPROs} from '../../actions/proActions'
+import {getUsers} from '../../actions/userActions'
 
 class DetailPages extends Component {
   componentDidMount(){
     var id = this.props.match.params._id
     this.props.getAD(id)
     this.props.getPROs();
+    this.props.getUsers();
   }
   format_currency = (price) => {
     var value = String(price)
@@ -16,6 +18,7 @@ class DetailPages extends Component {
   render() {
     var {pros} = this.props.projects;
     var ad = this.props.advertisement;
+    var {users} = this.props.users;
     //get name type project
     var typeProject;
     for (let index = 0; index < pros.length; index++) {
@@ -24,35 +27,23 @@ class DetailPages extends Component {
         typeProject = project.typePro
       }
     }
+    //get name user
+    var nameUser;
+    for (let index = 0; index < users.length; index++) {
+      const user = users[index];
+      if(user._id === ad.idUser){
+        nameUser = user.displayName
+      }
+    }
+    console.log(nameUser)
     return (
       <div className="container-fluid" style={{ paddingTop: 10 }}>
         {/* Full Picture */}
         <div><div className="row">
           {/* Carousel */}
-          <div id="carousel-example-generic" className="carousel slide" data-ride="carousel">
-            {/* Indicators */}
-            <ol className="carousel-indicators">
-              <li data-target="#carousel-example-generic" data-slide-to={0} className="active" />
-            </ol>
-            {/* Wrapper for slides */}
-            <div className="carousel-inner" style={{ maxHeight: "300pt" }} >
-              <div className="item active">
-                <img src={ad.imageUrl} alt="First slide" />
-                {/* Static Header */}
-                <div className="header-text-detail hidden-xs">
-                  <div className="col-md-12 text-center">
-                    <div>
-                      <a className="btn btn-theme btn-sm btn-min-block" >Quick View</a>
-                    </div>
-                  </div>
-                </div>{/* /header-text */}
-
-              </div>
-
-            </div>
-
-
-          </div>{/* /carousel */}
+          <div>
+          <img src={ad.imageUrl} alt={ad.title} style={{width: '100%', height: 700}}/>
+          </div>
         </div>
 
         </div>
@@ -76,16 +67,16 @@ class DetailPages extends Component {
                 </div>
                 <h3 className="content-box-title">{ad.title}</h3>
                 <p className="btn btn-default pull-right">
-                H135992 <br/>
+                {ad._id}<br/>
                 <b>House Code</b> 
                 </p>
-                <p className="content-box-tagline"><span className="fa fa-map-marker"></span> {ad.area}</p>
+                <p className="content-box-tagline"><span className="fa fa-map-marker"></span> {ad.address}</p>
 
                 <p className="content-box-title" style={{fontSize:"15pt",paddingTop:"20pt"}} >Overview</p>
                 <div className="row" style={{paddingLeft:"10pt"}} >
                     <div className="col-sm-6 over fa fa-building-o">{typeProject}</div>
                     <div className="col-sm-6 over fa fa-area-chart">
-                    69.00m2
+                    {ad.area} m2
 
                     </div>
                     <div className="col-sm-6 over fa fa-bath">
@@ -329,7 +320,7 @@ class DetailPages extends Component {
             <img  src="http://content.invisioncic.com/r224567/monthly_2016_11/582c950a2af14_liond.jpg.5656173de84122308c7f92de0d311515.jpg" style={{width:"40%",height:"40%"}}></img>
             </div>
             
-            <h3 style={{textAlign:"center"}}>MKestates</h3>
+            <h3 style={{textAlign:"center"}}>{nameUser}</h3>
             <div className="form-group">
             <div className="col-sm-10 col-sm-offset-1">
             
@@ -425,7 +416,8 @@ class DetailPages extends Component {
 const mapStateToProps = state =>{
   return{
     projects: state.pros,
-    advertisement: state.ad
+    advertisement: state.ad,
+    users: state.users
   }
 }
-export default connect(mapStateToProps, {getAD, getPROs})(DetailPages);
+export default connect(mapStateToProps, {getAD, getPROs, getUsers})(DetailPages);
