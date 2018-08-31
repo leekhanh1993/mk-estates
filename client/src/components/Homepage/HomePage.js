@@ -326,7 +326,7 @@ setLogOut() {
                         <img src="http://duanmasteri.vn/wp-content/uploads/2013/04/du-an-masteri-thao-dien-1.jpg" alt="tab1" className="img img-responsive" style={{height:"300pt"}} />
                       </div>
                       <div className="tab-pane " id="tab2">
-                        <img src="http://can-ho.vn/uploads/noidung/images/the-ascent.jpg" style={{height:"300pt"}}/>
+                        <img alt='ascent' src="http://can-ho.vn/uploads/noidung/images/the-ascent.jpg" style={{height:"300pt"}}/>
                       </div>
                       <div className="tab-pane fade" id="tab3">
                         <img src="http://www.thaodien.net/kcfinder/upload/images/tropic%20garden%20phoi%20canh.jpg" alt="tab1" className="img img-responsive"style={{height:"350pt"}} />

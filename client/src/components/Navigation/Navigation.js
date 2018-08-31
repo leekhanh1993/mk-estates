@@ -8,12 +8,28 @@ class Navigation extends Component {
         super(props);
         this.state = {
             displayName: '',
-            showAddUser: 0
+            showAddUser: false,
+            showUserLogin: false
         }
     }
-    showAddUser(){
+    setCloseUserLogin(showUserLogin){
         this.setState({
-            showAddUser: this.state.showAddUser + 1
+            showUserLogin
+        })
+    }
+    setCloseAddUser(showAddUser) {
+        this.setState({
+            showAddUser
+        })
+    }
+    showUserLogin(){
+        this.setState({
+            showUserLogin: true
+        })
+    }
+    showAddUser() {
+        this.setState({
+            showAddUser: true
         })
     }
 
@@ -35,7 +51,7 @@ class Navigation extends Component {
                         style={{ cursor: 'pointer' }}
                         className="dropdown-toggle"
                         data-toggle="dropdown">
-                        <span className="glyphicon glyphicon-user" /> {this.state.displayName}</a>
+                        <span className="fa fa-user-circle-o" /> {this.state.displayName}</a>
                     <ul className="dropdown-menu">
                         <li><NavLink to="/manageproduct" style={{ cursor: 'pointer' }}>Your Advertisements</NavLink></li>
                         <li><NavLink
@@ -51,25 +67,23 @@ class Navigation extends Component {
             controlUser = [
 
                 <li key="1" className='pull-right'>
-                    <UserLogin setMainLogin={(displayName, id, isLogIn) => this.setMainLogin(displayName, id, isLogIn)} />
+                    <UserLogin
+                    setCloseUserLogin={(value)=>this.setCloseUserLogin(value)}
+                    showUserLogin={this.state.showUserLogin}
+                    setMainLogin={(displayName, id, isLogIn) => this.setMainLogin(displayName, id, isLogIn)} />
                     <a
-                        data-toggle="modal"
-                        data-target='#userLogin'
-                        id="openUserLogin"
+                       onClick={this.showUserLogin.bind(this)}
                         style={{ cursor: 'pointer' }}
                     ><span className="glyphicon glyphicon-log-in" /> Login</a>
                 </li>
                 ,
 
                 <li key="2" className="pull-right">
-                    <AddUser showAddUser={this.state.showAddUser} />
+                    <AddUser showAddUser={this.state.showAddUser} setCloseAddUser={(value) => this.setCloseAddUser(value)} />
                     <a
-                    onClick={this.showAddUser.bind(this)}
-                        // id="openRegisterUser"
-                        // data-toggle="modal"
-                        // data-target="#addUser"
+                        onClick={this.showAddUser.bind(this)}
                         style={{ cursor: 'pointer' }}
-                    ><span className="glyphicon glyphicon-plus" /> Register</a>
+                    ><span className="fa fa-user-plus" /> Register</a>
                 </li>
             ]
         }
@@ -86,7 +100,6 @@ class Navigation extends Component {
                             <li><NavLink to="/home">Home</NavLink> </li>
                             <li><NavLink to="/product">Properties</NavLink> </li>
                             <li><NavLink to="/manageproject">Projects</NavLink></li>
-                            <li><NavLink to="/testform">Test Form</NavLink></li>
                             <li><NavLink to="/contact">Contact</NavLink></li>
                             {controlUser}
                         </ul>

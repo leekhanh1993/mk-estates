@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import { BrowserRouter as Router } from "react-router-dom";
@@ -22,18 +21,14 @@ class App extends Component {
     })
   }
   render() {
-    console.log(this.state.idCurrentUser)
     return (
       <Router>
         <div>
-          
-          
           {/* Navigation */}
          <div style={{paddingBottom:40}} >
           <Navigation
             setMainLogin={(idCurrentUser, isLogIn) => this.setMainLogin(idCurrentUser, isLogIn)}
             isLogIn={this.state.isLogIn} />
-
             </div>
           {/* Content */}
           <div id="content">
@@ -41,17 +36,10 @@ class App extends Component {
           </div>
           {/* Footer */}
           <div style={{marginBottom:0}} >
-
           <Footer />
           </div>
-          
-          
         </div>
-        
       </Router>
-      
-      
-
     );
   }
 }

@@ -315,9 +315,9 @@ class DetailPages extends Component {
             <div className="col-vertical-top">
             {/* Right Col */}
             <div className="form-area">
-            <form className="form-horizontal" role="form">
+            <form className="form-horizontal">
             <div className="lion">
-            <img  src="http://content.invisioncic.com/r224567/monthly_2016_11/582c950a2af14_liond.jpg.5656173de84122308c7f92de0d311515.jpg" style={{width:"40%",height:"40%"}}></img>
+            <img alt="logo"  src="http://content.invisioncic.com/r224567/monthly_2016_11/582c950a2af14_liond.jpg.5656173de84122308c7f92de0d311515.jpg" style={{width:"40%",height:"40%"}}></img>
             </div>
             
             <h3 style={{textAlign:"center"}}>{nameUser}</h3>

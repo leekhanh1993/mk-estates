@@ -21,7 +21,6 @@ class AddUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: false,
             userName: {
                 value: '',
                 isValid: true,
@@ -42,11 +41,6 @@ class AddUser extends Component {
                 isValid: true,
                 message: ''
             },
-        }
-    }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.showAddUser !== 0) {
-            this.handleShow();
         }
     }
     onChange(e) {
@@ -89,14 +83,11 @@ class AddUser extends Component {
         this.setState(newState)
     }
     handleClose() {
-        this.setState({
-            show: false
-        })
+        this.props.setCloseAddUser(false)
     }
     handleShow() {
         var newState = {
             ...this.state,
-            show: true,
             userName: {
                 value: '',
                 isValid: true,
@@ -247,17 +238,16 @@ class AddUser extends Component {
             }
             this.props.addUser(newUser)
             alert("Create User Successful!!!")
-            this.setState({
-                show: false
-            })
+            this.props.setCloseAddUser(false)
 
         }
     }
     render() {
         return (
             <Modal
+                onEnter={this.handleShow.bind(this)}
                 backdrop='static'
-                show={this.state.show}
+                show={this.props.showAddUser}
                 onHide={this.handleClose.bind(this)}
             >
                 <ModalHeader>

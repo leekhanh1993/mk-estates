@@ -90,22 +90,27 @@ class Product extends Component {
                 this.setState({
                     collapseArea: !this.state.collapseArea
                 })
+                break;
             case 'bedroom':
                 this.setState({
                     collapseNumBedRoom: !this.state.collapseNumBedRoom
                 })
+                break;
             case 'floor':
                 this.setState({
                     collapseNumFloor: !this.state.collapseNumFloor
                 })
+                break;
             case 'direction':
                 this.setState({
                     collapseDirection: !this.state.collapseDirection
                 })
+                break;
             case 'price':
                 this.setState({
                     collapsePrice: !this.state.collapsePrice
                 })
+                break;
             default:
                 return -1;
         }
@@ -149,8 +154,8 @@ class Product extends Component {
         //filter by price
         if (this.state.filterPrice === '1') {
             ads = ads.sort((a, b) => {
-                var firstPrice = parseInt(a.price)
-                var SecondPrice = parseInt(b.price)
+                var firstPrice = Number(a.price)
+                var SecondPrice = Number(b.price)
                 if (firstPrice > SecondPrice) return 1
                 else if (firstPrice < SecondPrice) return -1
                 else return 0;
@@ -158,8 +163,8 @@ class Product extends Component {
         }
         if (this.state.filterPrice === '-1') {
             ads = ads.sort((a, b) => {
-                var firstPrice = parseInt(a.price)
-                var SecondPrice = parseInt(b.price)
+                var firstPrice = Number(a.price)
+                var SecondPrice = Number(b.price)
                 if (firstPrice > SecondPrice) return -1
                 else if (firstPrice < SecondPrice) return 1
                 else return 0;
@@ -214,7 +219,6 @@ class Product extends Component {
         //load ads via pagination
         var { adsPerPage, currentPage, hidePage } = this.state;
         var totalADs = Math.ceil(copyADs.length / adsPerPage)
-        console.log(totalADs)
 
         //logic for display page numbers
         var pageNumbers = []
@@ -223,7 +227,7 @@ class Product extends Component {
 
         }
         if ('123'.includes(hidePage)) {
-            var pageNumbers = pageNumbers.slice(0, 5)
+            pageNumbers = pageNumbers.slice(0, 5)
             var loadPageNumbers = pageNumbers.map(number => {
                 return <li className={hidePage === number ? 'active' : ''} key={number}>
                     <a
@@ -232,8 +236,8 @@ class Product extends Component {
                 </li>
             })
         } else {
-            var pageNumbers = pageNumbers.slice((hidePage - 3), (hidePage + 2))
-            var loadPageNumbers = pageNumbers.map(number => {
+            pageNumbers = pageNumbers.slice((hidePage - 3), (hidePage + 2))
+            loadPageNumbers = pageNumbers.map(number => {
                 return <li className={hidePage === number ? 'active' : ''} key={number}>
                     <a
                         onClick={this.onClick.bind(this, number)}
