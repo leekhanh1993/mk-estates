@@ -1,6 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getPROs } from './../../actions/proActions'
+
+import {
+    Col,
+    Modal,
+    ModalBody,
+    ModalHeader,
+    ModalTitle,
+    ModalFooter,
+    Form,
+    FormControl,
+    FormGroup,
+    ControlLabel,
+    HelpBlock,
+    Button
+} from 'react-bootstrap'
 
 class AddAdvertisement extends Component {
     constructor(props) {
@@ -58,11 +73,21 @@ class AddAdvertisement extends Component {
         this.props.addNewAd(this.state)
         this.clearForm();
     }
+    format_currentDate=(rawDay)=>{
+        var currentYear = rawDay.getFullYear();
+        var currentMonth = rawDay.getMonth().toString().length === 1 ? `0${rawDay.getMonth() + 1}` : rawDay.getMonth() + 1;
+        var currentDate = rawDay.getDate().toString().length === 1 ? `0${rawDay.getDate()}` : rawDay.getDate();
+        var result = `${currentMonth}/${currentDate}/${currentYear}`
+        return result
+    }
     render() {
         var { pros } = this.props.projects;
         var listProjects = pros.map((project, index) => {
             return <option key={index} value={project._id}>{project.name}</option>
         })
+        var rawDay = new Date();
+        
+        console.log(this.format_currentDate(rawDay))
         return (
             <div>
                 {/* Modal */}

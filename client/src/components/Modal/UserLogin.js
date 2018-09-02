@@ -168,7 +168,7 @@ class UserLogin extends Component {
             >
                 <ModalHeader>
                     <ModalTitle bsClass="text-center">
-                        Create User
+                        Login User
                     </ModalTitle>
                 </ModalHeader>
                 <ModalBody>
@@ -226,7 +226,7 @@ class UserLogin extends Component {
                         <Button
                             bsStyle="success"
                             onClick={this.onSubmit.bind(this)}
-                        >Create</Button>
+                        >Login</Button>
                         <Button
                             bsStyle="danger"
                             onClick={this.handleClose.bind(this)}

@@ -2,16 +2,50 @@ import React, { Component } from 'react';
 import AddProject from '../Modal/AddProject';
 import { connect } from 'react-redux'
 import { addPRO, getPROs, deletePRO } from './../../actions/proActions'
-import {Link} from 'react-router-dom'
+import EditProject from '../Modal/EditProject';
 
 class ManageProject extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            idProject: '',
+            showEditProject: false,
+            showAddProject: false
+        }
+    }
+    setCloseAddProject(showAddProject) {
+        this.setState({
+            showAddProject
+        })
+        this.load();
+    }
+    setCloseEditProject(showEditProject) {
+        this.setState({
+            showEditProject
+        })
+        this.load();
+    }
     componentDidMount() {
+        this.load();
+    }
+    load() {
         this.props.getPROs();
+    }
+    onAddProject(showAddProject) {
+        this.setState({
+            showAddProject
+        })
+    }
+    onEditProject(idProject, showEditProject) {
+        this.setState({
+            idProject,
+            showEditProject
+        })
     }
     addNewPro(newPRO) {
         this.props.addPRO(newPRO)
     }
-    onRemove(id){
+    onRemove(id) {
         this.props.deletePRO(id);
     }
     render() {
@@ -26,18 +60,19 @@ class ManageProject extends Component {
                 <td>{pro.startYear}</td>
                 <td>{pro.endYear}</td>
                 <td>
-                    <Link 
-                    style={{marginRight: 10}}
-                    to={"/edit-project/" + pro._id}
-                    type="button" 
-                    className="btn btn-primary">
-                    <span className="glyphicon glyphicon-edit"></span> Edit
-                    </Link>
-                    <a 
-                    onClick={()=>this.onRemove(pro._id)}
-                    type="button" 
-                    className="btn btn-danger">
-                    <span className="glyphicon glyphicon-remove"></span> Remove
+                    <a
+                        onClick={() => this.onEditProject(pro._id, true)}
+                        style={{ marginRight: 10 }}
+                        // to={"/edit-project/" + pro._id}
+                        type="button"
+                        className="btn btn-primary">
+                        <span className="glyphicon glyphicon-edit"></span> Edit
+                    </a>
+                    <a
+                        onClick={() => this.onRemove(pro._id)}
+                        type="button"
+                        className="btn btn-danger">
+                        <span className="glyphicon glyphicon-remove"></span> Remove
                     </a>
                 </td>
             </tr>
@@ -49,12 +84,16 @@ class ManageProject extends Component {
                     <div className="row" style={{ paddingBottom: 40 }}>
                         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <button
-                            data-toggle="modal" 
-                            data-target="#addProject" 
-                            type="button" 
-                            className="btn btn-default"
+                                onClick={() => this.onAddProject(true)}
+                                type="button"
+                                className="btn btn-default"
                             ><span className='glyphicon glyphicon-plus' /> Add New Project</button>
-                            <AddProject addNewPro={(newPRO) => this.addNewPro(newPRO)} />
+                            <AddProject
+                                allProjects={this.props.projects.pros}
+                                setCloseAddProject={(value) => this.setCloseAddProject(value)}
+                                showAddProject={this.state.showAddProject}
+
+                            />
                         </div>
                     </div>
                     <div className="row">
@@ -73,6 +112,12 @@ class ManageProject extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <EditProject
+                                        allProjects={this.props.projects.pros}
+                                        idProject={this.state.idProject}
+                                        showEditProject={this.state.showEditProject}
+                                        setCloseEditProject={(value) => this.setCloseEditProject(value)}
+                                    />
                                     {listAllPros}
                                 </tbody>
                             </table>

@@ -4,7 +4,6 @@ import Product from '../Product/Product';
 import ManageProject from '../Project/ManageProject';
 import ManageProduct from '../Product/ManageProduct';
 import EditProduct from '../Product/EditProduct';
-import EditProject from '../Project/EditProject';
 import HomePage from '../Homepage/HomePage';
 import DetailPages from '../DetailPages/DetailPages';
 import Contact from '../Contact/Contact';
@@ -21,7 +20,6 @@ class RouterUrl extends Component {
                     <Route path="/manageproduct" component={()=> <ManageProduct idCurrentUser={idCurrentUser}/>}/>
                     <Route path="/manageproject" component={ManageProject} />
                     <Route path="/edit/:_id" component={EditProduct} />
-                    <Route path="/edit-project/:_id" component={EditProject} />
                     <Route path="/home" component={HomePage}/>
                     <Route path="/detail/:_id" component={DetailPages}/>
                     <Route path="/contact" component={Contact}/>
