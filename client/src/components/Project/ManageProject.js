@@ -46,7 +46,12 @@ class ManageProject extends Component {
         this.props.addPRO(newPRO)
     }
     onRemove(id) {
-        this.props.deletePRO(id);
+        if (window.confirm("Do you want to delete it ?")) {
+            this.setState({
+                idProject: ''
+            })
+            this.props.deletePRO(id);
+        }
     }
     render() {
         var projects = this.props.projects.pros;

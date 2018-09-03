@@ -1,45 +1,91 @@
 import React, { Component } from 'react';
 import AddAdvertisement from '../Modal/AddAdvertisement';
-import {connect} from 'react-redux'
-import {getADs, deleteAD, addAD} from './../../actions/adActions'
-import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getADs, deleteAD, addAD } from './../../actions/adActions'
+import EditAdvertisement from '../Modal/EditAdvertisement';
 
 
 class ManageProduct extends Component {
-    
-    componentDidMount(){
+    constructor(props) {
+        super(props);
+        this.state = {
+            idAdvertisement: '',
+            showAddAdvertisement: false,
+            showEditAdvertisement: false
+        }
+    }
+    setCloseEditAdvertisement(showEditAdvertisement) {
+        this.setState({
+            showEditAdvertisement
+        })
+        this.load()
+    }
+    onEditAdvertisement(idAdvertisement, showEditAdvertisement) {
+        this.setState({
+            idAdvertisement,
+            showEditAdvertisement
+        })
+    }
+
+    setCloseAddAdvertisement(showAddAdvertisement) {
+        this.setState({
+            showAddAdvertisement
+        })
+        this.load()
+    }
+    onAddAdvertisement(showAddAdvertisement) {
+        this.setState({
+            showAddAdvertisement
+        })
+    }
+    componentDidMount() {
+        this.load();
+    }
+    load() {
         this.props.getADs()
     }
     addNewAd(ad) {
         this.props.addAD(ad)
     }
-    onDelete = (id)=>{
-        this.props.deleteAD(id);
+    onDelete = (id) => {
+        if (window.confirm("Do want to delete it?")) {
+            this.setState({
+                idAdvertisement: ''
+            })
+            this.props.deleteAD(id);
+        }
+    }
+    format_currency = (price) => {
+        var value = String(price)
+        return value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
     }
     render() {
-        console.log(this.props.idCurrentUser)
         var { ads } = this.props.ad;
         var userADs = ads.filter(ad => ad.idUser === this.props.idCurrentUser)
         var listAds = userADs.map((ad, index) => {
             return <div key={index}>
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <div className="thumbnail">
-                        <img alt="" style={{width: 350, height: 350}} src={ad.imageUrl === '' ? "https://via.placeholder.com/350x350" : ad.imageUrl} />
+                        <img alt="" style={{ width: 350, height: 350 }} src={ad.imageUrl === '' ? "https://via.placeholder.com/350x350" : ad.imageUrl} />
                         <div className="caption">
                             <h3>{ad.title}</h3>
-                            <p>Area: {ad.area} m2</p>
+                            <p>Area: {this.format_currency(ad.area)} m2</p>
                             <p>Number of bedrooms: {ad.numbedrooms}</p>
                             <p>Number of floors: {ad.numfloors}</p>
-                            <p>Price: {ad.price} $</p>
-                            <hr/>
+                            <p>Price: {this.format_currency(ad.price)} $</p>
+                            <hr />
                             <p>
-                                <Link style={{marginRight: 10}} className="btn btn-primary" to={"/edit/"+ ad._id}>
-                                <span className="glyphicon glyphicon-edit"></span> Edit
-                                </Link>
-                                <a 
-                                onClick={this.onDelete.bind(this, ad._id)}
-                                className="btn btn-danger">
-                                <span className="glyphicon glyphicon-log-out"></span> Delete</a>
+                                <a
+                                    onClick={() => this.onEditAdvertisement(ad._id, true)}
+                                    style={{ marginRight: 10 }}
+                                    className="btn btn-primary"
+                                >
+                                    <span className="glyphicon glyphicon-edit"></span> Edit
+                                </a>
+                                <a
+                                    onClick={this.onDelete.bind(this, ad._id)}
+                                    className="btn btn-danger">
+                                    <span className="glyphicon glyphicon-log-out"></span> Delete</a>
                             </p>
                         </div>
                     </div>
@@ -48,15 +94,20 @@ class ManageProduct extends Component {
 
         })
         return (
-            <div className="container-fluid" style={{paddingTop:"5%"}}>
+            <div className="container-fluid" style={{ paddingTop: "5%" }}>
                 <div className="row" style={{ paddingBottom: 40 }}>
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <a
                             className="btn btn-primary"
-                            data-toggle="modal" data-target="#addAdvertisement"
+                            onClick={this.onAddAdvertisement.bind(this, true)}
                         ><span className="glyphicon glyphicon-plus"></span> New Advertisement</a>
                     </div>
-                    <AddAdvertisement idCurrentUser={this.props.idCurrentUser} addNewAd={(data) => this.addNewAd(data)} />
+                    <AddAdvertisement
+                        allAdvertisements={this.props.ad.ads}
+                        setCloseAddAdvertisement={(value) => this.setCloseAddAdvertisement(value)}
+                        showAddAdvertisement={this.state.showAddAdvertisement}
+                        idCurrentUser={this.props.idCurrentUser}
+                        addNewAd={(data) => this.addNewAd(data)} />
                 </div>
                 <div className="row" style={{ paddingBottom: 10 }}>
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -69,6 +120,12 @@ class ManageProduct extends Component {
                     </div>
                 </div>
                 <div className="row">
+                    <EditAdvertisement
+                        allAdvertisements={this.props.ad.ads}
+                        setCloseEditAdvertisement={(value) => this.setCloseEditAdvertisement(value)}
+                        showEditAdvertisement={this.state.showEditAdvertisement}
+                        idAdvertisement={this.state.idAdvertisement}
+                    />
                     {listAds}
                 </div>
             </div>
@@ -82,4 +139,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps,{getADs, deleteAD, addAD})(ManageProduct);
+export default connect(mapStateToProps, { getADs, deleteAD, addAD })(ManageProduct);
