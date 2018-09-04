@@ -20,7 +20,7 @@ class Product extends Component {
             collapseDirection: false,
             collapsePrice: false,
             currentPage: 1,
-            adsPerPage: 1,
+            adsPerPage: 4,
             hidePage: 1,
         }
     }
@@ -56,7 +56,7 @@ class Product extends Component {
             filterDirection: '',
             filterPrice: '',
             currentPage: 1,
-            adsPerPage: 1,
+            adsPerPage: 4,
             hidePage: 1
         })
     }
@@ -64,7 +64,7 @@ class Product extends Component {
         this.setState({
             filterArea,
             currentPage: 1,
-            adsPerPage: 1,
+            adsPerPage: 4,
             hidePage: 1
         })
     }
@@ -72,7 +72,7 @@ class Product extends Component {
         this.setState({
             filterNumBedRoom,
             currentPage: 1,
-            adsPerPage: 1,
+            adsPerPage: 4,
             hidePage: 1
         })
     }
@@ -80,7 +80,7 @@ class Product extends Component {
         this.setState({
             filterNumFloor,
             currentPage: 1,
-            adsPerPage: 1,
+            adsPerPage: 4,
             hidePage: 1
         })
     }
@@ -88,7 +88,7 @@ class Product extends Component {
         this.setState({
             filterDirection,
             currentPage: 1,
-            adsPerPage: 1,
+            adsPerPage: 4,
             hidePage: 1
         })
     }
@@ -96,7 +96,7 @@ class Product extends Component {
         this.setState({
             filterPrice,
             currentPage: 1,
-            adsPerPage: 1,
+            adsPerPage: 4,
             hidePage: 1
         })
     }
