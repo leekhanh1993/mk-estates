@@ -234,7 +234,8 @@ class AddUser extends Component {
             var newUser = {
                 userName: userName.value,
                 displayName: displayName.value,
-                password: password.value
+                password: password.value,
+                isAdmin: false
             }
             this.props.addUser(newUser)
             alert("Create User Successful!!!")

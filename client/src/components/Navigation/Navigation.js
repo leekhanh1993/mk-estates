@@ -12,7 +12,7 @@ class Navigation extends Component {
             showUserLogin: false
         }
     }
-    setCloseUserLogin(showUserLogin){
+    setCloseUserLogin(showUserLogin) {
         this.setState({
             showUserLogin
         })
@@ -22,7 +22,7 @@ class Navigation extends Component {
             showAddUser
         })
     }
-    showUserLogin(){
+    showUserLogin() {
         this.setState({
             showUserLogin: true
         })
@@ -33,8 +33,8 @@ class Navigation extends Component {
         })
     }
 
-    setMainLogin(displayName, id, isLogIn) {
-        this.props.setMainLogin(id, isLogIn);
+    setMainLogin(displayName, id, idAdmin, isLogIn) {
+        this.props.setMainLogin(id, idAdmin, isLogIn);
         this.setState({
             displayName
         })
@@ -44,7 +44,25 @@ class Navigation extends Component {
     }
     render() {
         var controlUser;
-        if (this.props.isLogIn) {
+        if (this.props.isLogIn && this.props.isAdmin) {
+            controlUser = [
+                <li key="1" className="dropdown pull-right">
+                    <a
+                        style={{ cursor: 'pointer' }}
+                        className="dropdown-toggle"
+                        data-toggle="dropdown">
+                        <span className="fa fa-user-circle-o" /> {this.state.displayName}</a>
+                    <ul className="dropdown-menu">
+                        <li><NavLink
+                            onClick={this.setLogOut.bind(this)}
+                            to="/product"
+                            style={{ cursor: 'pointer' }}
+                        ><span className="glyphicon glyphicon-log-out" /> Log out</NavLink>
+                        </li>
+                    </ul>
+                </li>
+            ]
+        } else if (this.props.isLogIn && (this.props.isAdmin === false)) {
             controlUser = [
                 <li key="1" className="dropdown pull-right">
                     <a
@@ -65,19 +83,17 @@ class Navigation extends Component {
             ]
         } else {
             controlUser = [
-
                 <li key="1" className='pull-right'>
                     <UserLogin
-                    setCloseUserLogin={(value)=>this.setCloseUserLogin(value)}
-                    showUserLogin={this.state.showUserLogin}
-                    setMainLogin={(displayName, id, isLogIn) => this.setMainLogin(displayName, id, isLogIn)} />
+                        setCloseUserLogin={(value) => this.setCloseUserLogin(value)}
+                        showUserLogin={this.state.showUserLogin}
+                        setMainLogin={(displayName, id, idAdmin, isLogIn) => this.setMainLogin(displayName, id, idAdmin, isLogIn)} />
                     <a
-                       onClick={this.showUserLogin.bind(this)}
+                        onClick={this.showUserLogin.bind(this)}
                         style={{ cursor: 'pointer' }}
                     ><span className="glyphicon glyphicon-log-in" /> Login</a>
                 </li>
                 ,
-
                 <li key="2" className="pull-right">
                     <AddUser showAddUser={this.state.showAddUser} setCloseAddUser={(value) => this.setCloseAddUser(value)} />
                     <a
@@ -96,15 +112,22 @@ class Navigation extends Component {
                         {/* <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>*/}
                     </div>
                     <nav id="nav-menu-container">
-                        <ul className="nav-menu"  >
-                            <li><NavLink to="/home">Home</NavLink> </li>
-                            <li><NavLink to="/product">Properties</NavLink> </li>
-                            <li><NavLink to="/manageproject">Projects</NavLink></li>
-                            <li><NavLink to="/contact">Contact</NavLink></li>
-                            {controlUser}
-                        </ul>
+                        {this.props.isAdmin
+                            ? <ul className="nav-menu"  >
+                                <li><NavLink to="/home">Home</NavLink> </li>
+                                <li><NavLink to="/product">Properties</NavLink> </li>
+                                <li><NavLink to="/contact">Contact</NavLink></li>
+                                <li><NavLink to="/manageproject">Projects</NavLink></li>
+                                {controlUser}
+                            </ul>
+                            : <ul className="nav-menu"  >
+                                <li><NavLink to="/home">Home</NavLink> </li>
+                                <li><NavLink to="/product">Properties</NavLink> </li>
+                                <li><NavLink to="/contact">Contact</NavLink></li>
+                                {controlUser}
+                            </ul>
+                        }
                     </nav>{/* #nav-menu-container */}
-
                 </div>
             </header>/* #header */
         );

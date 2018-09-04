@@ -149,7 +149,7 @@ class UserLogin extends Component {
             }
             if (reqLogin) {
                 alert("Login Successful!!!")
-                this.props.setMainLogin(currentUser.displayName, currentUser._id, true)
+                this.props.setMainLogin(currentUser.displayName, currentUser._id, currentUser.isAdmin, true)
                 this.props.setCloseUserLogin(false)
             }
             else {

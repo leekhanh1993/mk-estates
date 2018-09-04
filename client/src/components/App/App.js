@@ -9,13 +9,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isAdmin: false,
       isLogIn: false,
       idCurrentUser: ''
     }
   }
 
-  setMainLogin(idCurrentUser, isLogIn){
+  setMainLogin(idCurrentUser, isAdmin, isLogIn){
     this.setState({
+      isAdmin,
       idCurrentUser,
       isLogIn
     })
@@ -27,8 +29,10 @@ class App extends Component {
           {/* Navigation */}
          <div style={{paddingBottom:40}} >
           <Navigation
-            setMainLogin={(idCurrentUser, isLogIn) => this.setMainLogin(idCurrentUser, isLogIn)}
-            isLogIn={this.state.isLogIn} />
+            setMainLogin={(idCurrentUser, isAdmin, isLogIn) => this.setMainLogin(idCurrentUser, isAdmin, isLogIn)}
+            isLogIn={this.state.isLogIn}
+            isAdmin={this.state.isAdmin}
+             />
             </div>
           {/* Content */}
           <div id="content">

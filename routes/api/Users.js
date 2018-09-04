@@ -19,7 +19,8 @@ router.post('/', (req, res)=>{
     const newUser = new User({
         userName: req.body.userName,
         displayName: req.body.displayName,
-        password: req.body.password
+        password: req.body.password,
+        isAdmin: req.body.isAdmin
     })
     newUser.save().then(user => res.json(user))
 })
