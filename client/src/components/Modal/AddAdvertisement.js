@@ -746,12 +746,18 @@ class AddAdvertisement extends Component {
                             <Col sm={5} componentClass={ControlLabel}>Direction</Col>
                             <Col sm={5}>
                                 <FormControl
-                                    type="input"
+                                    componentClass='select'
+                                    onChange={this.onChange.bind(this)}
                                     value={this.state.direction.value}
                                     name="direction"
                                     placeholder='Direction'
-                                    onChange={this.onChange.bind(this)}
-                                />
+                                >
+                                    <option value="" disabled className="text-hide">Please select</option>
+                                    <option value="North">North</option>
+                                    <option value="South">South</option>
+                                    <option value="East">East</option>
+                                    <option value="West">West</option>
+                                </FormControl>
                                 <FormControl.Feedback />
                                 {this.state.direction.isValid
                                     ? ''

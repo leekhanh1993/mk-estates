@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getADs } from './../../actions/adActions'
 import { connect } from 'react-redux'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class Product extends Component {
     constructor(props) {
@@ -9,7 +9,6 @@ class Product extends Component {
         this.state = {
             inputKeyWord: '',
             filterByKeyWord: '',
-            filterAllADs: '',
             filterArea: '',
             filterNumBedRoom: '',
             filterNumFloor: '',
@@ -49,39 +48,56 @@ class Product extends Component {
             filterByKeyWord: this.state.inputKeyWord
         })
     }
-    onSearchAllADs(filterAllADs) {
+    onSearchAllADs() {
         this.setState({
-            filterAllADs,
             filterArea: '',
             filterNumBedRoom: '',
             filterNumFloor: '',
             filterDirection: '',
-            filterPrice: ''
+            filterPrice: '',
+            currentPage: 1,
+            adsPerPage: 1,
+            hidePage: 1
         })
     }
     onSearchByArea(filterArea) {
         this.setState({
-            filterArea
+            filterArea,
+            currentPage: 1,
+            adsPerPage: 1,
+            hidePage: 1
         })
     }
     onSearchByNumBedRoom(filterNumBedRoom) {
         this.setState({
-            filterNumBedRoom
+            filterNumBedRoom,
+            currentPage: 1,
+            adsPerPage: 1,
+            hidePage: 1
         })
     }
     onSearchByNumFloor(filterNumFloor) {
         this.setState({
-            filterNumFloor
+            filterNumFloor,
+            currentPage: 1,
+            adsPerPage: 1,
+            hidePage: 1
         })
     }
     onSearchByDirection(filterDirection) {
         this.setState({
-            filterDirection
+            filterDirection,
+            currentPage: 1,
+            adsPerPage: 1,
+            hidePage: 1
         })
     }
     onSearchByPrice(filterPrice) {
         this.setState({
-            filterPrice
+            filterPrice,
+            currentPage: 1,
+            adsPerPage: 1,
+            hidePage: 1
         })
     }
     setButtonUpDown(key) {
@@ -136,7 +152,41 @@ class Product extends Component {
         }
         //search by area
         ads = ads.filter((ad) => {
-            return ad.area.indexOf(this.state.filterArea) !== -1
+            switch (this.state.filterArea) {
+                case 0:
+                    if (Number(ad.area) < 100) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case 1:
+                    if (Number(ad.area) >= 100 && Number(ad.area) < 300) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case 3:
+                    if (Number(ad.area) >= 300 && Number(ad.area) < 600) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case 6:
+                    if (Number(ad.area) >= 600 && Number(ad.area) < 1000) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case 10:
+                    if (Number(ad.area) >= 1000) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                default:
+                    return true;
+            }
+            // return ad.area.indexOf(this.state.filterArea) !== -1
         })
         //search by bedroom
         ads = ads.filter((ad) => {
@@ -170,14 +220,14 @@ class Product extends Component {
                 else return 0;
             })
         }
-        //render Areas
-        var listAreas = copyADs.map((ad, index) => {
-            return <li key={index} className="list-group-item">
-                <a
-                    onClick={this.onSearchByArea.bind(this, ad.area)}
-                >{ad.area}</a>
-            </li>
-        })
+        // //render Areas
+        // var listAreas = copyADs.map((ad, index) => {
+        //     return <li key={index} className="list-group-item">
+        //         <a
+        //             onClick={this.onSearchByArea.bind(this, ad.area)}
+        //         >{ad.area}</a>
+        //     </li>
+        // })
         //render NumBedrooms
         var getTotalNumBedRooms = (listADs) => {
             var listNums = []
@@ -216,9 +266,10 @@ class Product extends Component {
             ><a>{num === 1 ? (num + " Floor") : (num + " Floors")}</a></li>
         })
 
+
         //load ads via pagination
         var { adsPerPage, currentPage, hidePage } = this.state;
-        var totalADs = Math.ceil(copyADs.length / adsPerPage)
+        var totalADs = Math.ceil(ads.length / adsPerPage)
 
         //logic for display page numbers
         var pageNumbers = []
@@ -282,7 +333,7 @@ class Product extends Component {
                                     <div className="panel-heading">
                                         <h4 className="panel-title">
                                             <a
-                                                onClick={this.onSearchAllADs.bind(this, '1')}>All</a>
+                                                onClick={this.onSearchAllADs.bind(this)}>All</a>
                                         </h4>
                                     </div>
                                 </div>
@@ -301,7 +352,32 @@ class Product extends Component {
                                     </div>
                                     <div id="area" className="panel-collapse collapse">
                                         <ul className="list-group">
-                                            {listAreas}
+                                            <li className="list-group-item">
+                                                <a
+                                                    onClick={this.onSearchByArea.bind(this, 0)}
+                                                >Lower than 100m2</a>
+                                            </li>
+                                            <li className="list-group-item">
+                                                <a
+                                                    onClick={this.onSearchByArea.bind(this, 1)}
+                                                >100m2 ++</a>
+                                            </li>
+                                            <li className="list-group-item">
+                                                <a
+                                                    onClick={this.onSearchByArea.bind(this, 3)}
+                                                >300m2 ++</a>
+                                            </li>
+                                            <li className="list-group-item">
+                                                <a
+                                                    onClick={this.onSearchByArea.bind(this, 6)}
+                                                >600m2 ++</a>
+                                            </li>
+                                            <li className="list-group-item">
+                                                <a
+                                                    onClick={this.onSearchByArea.bind(this, 10)}
+                                                >1000m2 ++</a>
+                                            </li>
+                                            {/* {listAreas} */}
                                         </ul>
                                     </div>
                                 </div>
@@ -429,17 +505,19 @@ class Product extends Component {
                         {listAllADs}
                     </div>
                     <div className="row text-center">
-                        <div className="pagination pagination-lg">
-                            <li className={this.state.currentPage === 1 ? "disabled" : ""}>
-                                <a
-                                    onClick={this.onClick.bind(this, 1)}
-                                >{'<<'}</a></li>
-                            {loadPageNumbers}
-                            <li className={this.state.currentPage === totalADs ? "disabled" : ""}>
-                                <a
-                                    onClick={this.onClick.bind(this, totalADs)}
-                                >{'>>'}</a></li>
-                        </div>
+                        {pageNumbers.length === 0
+                            ? <h1 className="text-muted">No result match</h1>
+                            : <div className="pagination pagination-lg">
+                                <li className={this.state.currentPage === 1 ? "disabled" : ""}>
+                                    <a
+                                        onClick={this.onClick.bind(this, 1)}
+                                    >{'<<'}</a></li>
+                                {loadPageNumbers}
+                                <li className={this.state.currentPage === totalADs ? "disabled" : ""}>
+                                    <a
+                                        onClick={this.onClick.bind(this, totalADs)}
+                                    >{'>>'}</a></li>
+                            </div>}
                     </div>
                 </div>
             </div>
