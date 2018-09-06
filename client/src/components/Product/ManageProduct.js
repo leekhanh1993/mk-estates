@@ -11,8 +11,23 @@ class ManageProduct extends Component {
         this.state = {
             idAdvertisement: '',
             showAddAdvertisement: false,
-            showEditAdvertisement: false
+            showEditAdvertisement: false,
+            filterByKeyWord: '',
+            inputKeyWord: ''
         }
+    }
+    searchKeyWord() {
+        this.setState({
+            filterByKeyWord: this.state.inputKeyWord
+        })
+    }
+    onChange(e) {
+        var target = e.target;
+        var name = target.name;
+        var value = target.value;
+        this.setState({
+            [name]: value
+        })
     }
     setCloseEditAdvertisement(showEditAdvertisement) {
         this.setState({
@@ -61,7 +76,14 @@ class ManageProduct extends Component {
     }
     render() {
         var { ads } = this.props.ad;
+        var {filterByKeyWord} = this.state;
+
         var userADs = ads.filter(ad => ad.idUser === this.props.idCurrentUser)
+        //search by keyword
+        userADs = userADs.filter((ad) => {
+            return ad.title.toLowerCase().indexOf(filterByKeyWord.toLowerCase()) !== -1
+        })
+
         var listAds = userADs.map((ad, index) => {
             return <div key={index}>
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -112,9 +134,18 @@ class ManageProduct extends Component {
                 <div className="row" style={{ paddingBottom: 10 }}>
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <div className="input-group">
-                            <input type="text" className="form-control" placeholder="Search" />
+                            <input
+                                onChange={this.onChange.bind(this)}
+                                name="inputKeyWord"
+                                value={this.state.inputKeyWord}
+                                type="text"
+                                className="form-control"
+                                placeholder="Search" />
                             <span className="input-group-btn">
-                                <button type="button" className="btn btn-default">Search</button>
+                                <button
+                                    onClick={this.searchKeyWord.bind(this)}
+                                    type="button"
+                                    className="btn btn-default">Search</button>
                             </span>
                         </div>
                     </div>
