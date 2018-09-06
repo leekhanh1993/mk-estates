@@ -189,13 +189,19 @@ class Product extends Component {
             // return ad.area.indexOf(this.state.filterArea) !== -1
         })
         //search by bedroom
-        ads = ads.filter((ad) => {
-            return ad.numbedrooms.indexOf(this.state.filterNumBedRoom) !== -1
-        })
+        if (this.state.filterNumBedRoom) {
+            ads = ads.filter((ad) => {
+                return Number(ad.numbedrooms) === this.state.filterNumBedRoom
+            })
+        }
+
         //search by floor
-        ads = ads.filter((ad) => {
-            return ad.numfloors.indexOf(this.state.filterNumFloor) !== -1
-        })
+        if (this.state.filterNumFloor) {
+            ads = ads.filter((ad) => {
+                return Number(ad.numfloors) === this.state.filterNumFloor
+            })
+        }
+
         //search by Direction
         ads = ads.filter((ad) => {
             return ad.direction.indexOf(this.state.filterDirection) !== -1
@@ -232,11 +238,13 @@ class Product extends Component {
         var getTotalNumBedRooms = (listADs) => {
             var listNums = []
             listADs.forEach(ad => {
-                if (!listNums.includes(ad.numbedrooms)) {
-                    listNums.push(ad.numbedrooms)
+                if (!listNums.includes(Number(ad.numbedrooms))) {
+                    listNums.push(Number(ad.numbedrooms))
                 }
             });
-            return listNums
+            return listNums.sort((a, b) => {
+                return a - b;
+            })
         }
         var totalNumBedRems = getTotalNumBedRooms(copyADs);
         var rednerNumBedRooms = totalNumBedRems.map((num) => {
@@ -251,11 +259,13 @@ class Product extends Component {
         var getTotalFloors = (listADs) => {
             var listNums = []
             listADs.forEach(ad => {
-                if (!listNums.includes(ad.numfloors)) {
-                    listNums.push(ad.numfloors)
+                if (!listNums.includes(Number(ad.numfloors))) {
+                    listNums.push(Number(ad.numfloors))
                 }
             });
-            return listNums
+            return listNums.sort((a, b) => {
+                return a - b;
+            })
         }
         var totalNumFloors = getTotalFloors(copyADs);
         var rednerNumFloors = totalNumFloors.map((num) => {
