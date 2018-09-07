@@ -39,7 +39,7 @@ class App extends Component {
             <RouterUrl idCurrentUser={this.state.idCurrentUser}/>
           </div>
           {/* Footer */}
-          <div style={{marginBottom:0}} >
+          <div >
           <Footer />
           </div>
         </div>

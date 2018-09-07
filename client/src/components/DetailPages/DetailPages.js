@@ -35,7 +35,6 @@ class DetailPages extends Component {
         nameUser = user.displayName
       }
     }
-    console.log(nameUser)
     return (
       <div className="container-fluid" style={{ paddingTop: 5 }}>
         {/* Full Picture */}
@@ -67,24 +66,15 @@ class DetailPages extends Component {
                       <b>House Code</b>
                     </p>
                     <p className="content-box-tagline"><span className="fa fa-map-marker"></span> {ad.address}</p>
+                    <p className="content-box-tagline"><span className="fa fa-calendar-check-o"></span> {ad.postDate}</p>
+                    <p className="content-box-tagline"><span className="fa fa-calendar-times-o"></span> {ad.expiredDate}</p>
                     <p className="content-box-title" style={{ fontSize: "15pt", paddingTop: "20pt" }} >Overview</p>
                     <div className="row" style={{ paddingLeft: "10pt" }} >
-                      <div className="col-sm-6 over fa fa-building-o">{typeProject}</div>
-                      <div className="col-sm-6 over fa fa-area-chart">
-                        {ad.area} m2
-                    </div>
-                      <div className="col-sm-6 over fa fa-bath">
-                        1 Bathroom(s)
-                    </div>
-                      <div className="col-sm-6 over">
-                        <span className="fa fa-bed" /> {ad.numbedrooms} Bethroom(s)
-                    </div>
-                      <div className="col-sm-6 over fa fa-group">
-                        2 Accomodate(s)
-                    </div>
-                      <div className="col-sm-6 over fa fa-umbrella">
-                        Furniture: Full
-                    </div>
+                      <div className="col-sm-6 over"><span className="fa fa-building-o"/> {typeProject}</div>
+                      <div className="col-sm-6 over"><span className="fa fa-area-chart"/>{ad.area} m2</div>
+                      <div className="col-sm-6 over"><span className="fa fa-bars"/> {ad.numfloors} Floor(s)</div>
+                      <div className="col-sm-6 over"><span className="fa fa-bed" /> {ad.numbedrooms} Bethroom(s)</div>
+                      <div className="col-sm-6 over"><span className="fa fa-compass"/> {ad.direction}</div>
                     </div>
                   </div>
                   <div className="col-md-10 col-md-offset-1">
@@ -96,6 +86,12 @@ class DetailPages extends Component {
                       <p>Project Facility: parking lot,children's playground, convenient stores, international garden, outdoor gym and fitness area, multi-purpose courtyard, </p>
                       <p>Nearby places: Zoo, Botanic Garden, Universities, historic places</p>
                       <p>Traffic: 5 minutes to District 1, 5 minutes to Ben Thanh Market, 15 minutes to District 7</p>
+                    </div>
+                  </div>
+                  <div className="col-md-10 col-md-offset-1">
+                    <p className="content-box-title" style={{ fontSize: "15pt", paddingTop: "20pt" }} >Contact Information</p>
+                    <div className="content-box-text">
+                      <p>{ad.contactInfo}</p>
                     </div>
                   </div>
                   <div className="col-md-10 col-md-offset-1">
@@ -250,7 +246,7 @@ class DetailPages extends Component {
                 <div className="col-vertical-top">
                   {/* Right Col */}
                   <div className="form-area">
-                    <form className="form-horizontal">
+                    <form className="form-horizontal" noValidate>
                       <div className="lion">
                         <img alt="logo" src="http://content.invisioncic.com/r224567/monthly_2016_11/582c950a2af14_liond.jpg.5656173de84122308c7f92de0d311515.jpg" style={{ width: "40%", height: "40%" }}></img>
                       </div>
@@ -261,7 +257,7 @@ class DetailPages extends Component {
                             <b className="content-box-tagline" style={{ fontSize: "18pt", paddingRight: "3pt" }} >{this.format_currency(ad.price)} VND</b>
                             <span>per month</span> </div>
                           <div style={{ textAlign: "center", paddingBottom: "10pt", paddingTop: "8pt" }}>
-                            <button className="btn btn-primary btn-sm fa fa-star"  >Popular</button>
+                            <button type="button" className="btn btn-primary fa fa-star"  >Popular</button>
                             <span className="fa fa-eye" style={{ paddingLeft: "8pt" }}>5 Views</span>
                           </div>
                           <input type="text" className="form-control" id="yourName" name="yourName" placeholder="Your Name" required />
@@ -285,7 +281,7 @@ class DetailPages extends Component {
                       </div>
                       <div className="form-group">
                         <div className="col-sm-10 col-sm-offset-1">
-                          <button type="button" id="submit" name="submit" className="btn btn-primary center-block ">Request Inspection</button>
+                          <button type="button" className="btn btn-primary center-block ">Request Inspection</button>
                         </div>
                       </div>
                     </form>
