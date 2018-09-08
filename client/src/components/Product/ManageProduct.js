@@ -100,13 +100,13 @@ class ManageProduct extends Component {
                                 <a
                                     onClick={() => this.onEditAdvertisement(ad._id, true)}
                                     style={{ marginRight: 10 }}
-                                    className="btn btn-primary"
+                                    className="btn btn-default mainBtnStyle"
                                 >
                                     <span className="glyphicon glyphicon-edit"></span> Edit
                                 </a>
                                 <a
                                     onClick={this.onDelete.bind(this, ad._id)}
-                                    className="btn btn-danger">
+                                    className="btn btn-default mainBtnStyle">
                                     <span className="glyphicon glyphicon-log-out"></span> Delete</a>
                             </p>
                         </div>
@@ -120,7 +120,7 @@ class ManageProduct extends Component {
                 <div className="row" style={{ paddingBottom: 40 }}>
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <a
-                            className="btn btn-primary"
+                            className="btn btn-default mainBtnStyle"
                             onClick={this.onAddAdvertisement.bind(this, true)}
                         ><span className="glyphicon glyphicon-plus"></span> New Advertisement</a>
                     </div>

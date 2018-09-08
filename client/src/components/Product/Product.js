@@ -290,7 +290,7 @@ class Product extends Component {
         if ('123'.includes(hidePage)) {
             pageNumbers = pageNumbers.slice(0, 5)
             var loadPageNumbers = pageNumbers.map(number => {
-                return <li className={hidePage === number ? 'active' : ''} key={number}>
+                return <li className={hidePage === number ? 'active btnActPagi' : ''} key={number}>
                     <a
                         onClick={this.onClick.bind(this, number)}
                     >{number}</a>
@@ -299,7 +299,7 @@ class Product extends Component {
         } else {
             pageNumbers = pageNumbers.slice((hidePage - 3), (hidePage + 2))
             loadPageNumbers = pageNumbers.map(number => {
-                return <li className={hidePage === number ? 'active' : ''} key={number}>
+                return <li className={hidePage === number ? 'active btnActPagi' : ''} key={number}>
                     <a
                         onClick={this.onClick.bind(this, number)}
                     >{number}</a>
@@ -324,7 +324,7 @@ class Product extends Component {
                         <p><b>Number of floors:</b> {ad.numfloors}</p>
                         <p><b>Price:</b> {this.format_currency(ad.price)} VND</p>
                         <p>
-                            <Link to={"/detail/" + ad._id} className="btn btn-primary">Detail</Link>
+                            <Link to={"/detail/" + ad._id} className="btn btn-default">Detail</Link>
                         </p>
                     </div>
                 </div>
@@ -511,19 +511,19 @@ class Product extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row btnProduct">
                         {listAllADs}
                     </div>
-                    <div className="row text-center">
+                    <div className="row text-center btnPagination">
                         {pageNumbers.length === 0
                             ? <h1 className="text-muted">No result match</h1>
                             : <div className="pagination pagination-lg">
-                                <li className={this.state.currentPage === 1 ? "disabled" : ""}>
+                                <li className={this.state.currentPage === 1 ? "disabled disPagi" : ""}>
                                     <a
                                         onClick={this.onClick.bind(this, 1)}
                                     >{'<<'}</a></li>
                                 {loadPageNumbers}
-                                <li className={this.state.currentPage === totalADs ? "disabled" : ""}>
+                                <li className={this.state.currentPage === totalADs ? "disabled disPagi" : ""}>
                                     <a
                                         onClick={this.onClick.bind(this, totalADs)}
                                     >{'>>'}</a></li>

@@ -28,12 +28,40 @@ footer {
   cursor: pointer;
   color: white;
 }
+.mainBtnStyle{
+    background-color: #222222 !important;
+    color: white !important;
+}
 .manageproject button{
  background-color: #222222 !important;
  color: white !important;
 }
 
+.btnProduct a{
+    background-color: #222222 !important;
+    color: white !important;
+}
+.btnProduct a:hover{
+    background-color: #18d26e !important;
+}
+.btnPagination a{
+    cursor: pointer;
+    color: black !important;
 
+}
+.btnActPagi a{
+    background-color: #222222 !important;
+    color: white !important;
+}
+.disPagi a{
+    color: grey !important;
+
+}
+
+button{
+    background-color: #222222 !important;
+    color: white !important;
+}
 /*  */
 .containerSlider{
   margin-top: 10%;
@@ -1022,10 +1050,8 @@ a{
     float: left;
   }
 
-
 #content{
-    
-        min-height: 60vh;
-      
+    min-height: 60vh;
 }
+
 

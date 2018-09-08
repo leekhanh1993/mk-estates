@@ -70,13 +70,13 @@ class ManageProject extends Component {
                         style={{ marginRight: 10 }}
                         // to={"/edit-project/" + pro._id}
                         type="button"
-                        className="btn btn-primary">
+                        className="btn btn-default mainBtnStyle">
                         <span className="glyphicon glyphicon-edit"></span> Edit
                     </a>
                     <a
                         onClick={() => this.onRemove(pro._id)}
                         type="button"
-                        className="btn btn-danger">
+                        className="btn btn-default mainBtnStyle">
                         <span className="glyphicon glyphicon-remove"></span> Remove
                     </a>
                 </td>

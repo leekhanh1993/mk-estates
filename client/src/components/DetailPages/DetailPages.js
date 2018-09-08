@@ -38,12 +38,13 @@ class DetailPages extends Component {
     return (
       <div className="container-fluid" style={{ paddingTop: 5 }}>
         {/* Full Picture */}
-        <div><div className="row">
-          {/* Carousel */}
-          <div>
-            <img src={ad.imageUrl} alt={ad.title} style={{ width: '100%', height: 700 }} />
+        <div>
+          <div className="row">
+            {/* Carousel */}
+            <div>
+              <img src={ad.imageUrl} alt={ad.title} style={{ width: '100%', height: 700 }} />
+            </div>
           </div>
-        </div>
         </div>
         {/* Two Columns */}
         <div>
@@ -70,11 +71,11 @@ class DetailPages extends Component {
                     <p className="content-box-tagline"><span className="fa fa-calendar-times-o"></span> {ad.expiredDate}</p>
                     <p className="content-box-title" style={{ fontSize: "15pt", paddingTop: "20pt" }} >Overview</p>
                     <div className="row" style={{ paddingLeft: "10pt" }} >
-                      <div className="col-sm-6 over"><span className="fa fa-building-o"/> {typeProject}</div>
-                      <div className="col-sm-6 over"><span className="fa fa-area-chart"/>{ad.area} m2</div>
-                      <div className="col-sm-6 over"><span className="fa fa-bars"/> {ad.numfloors} Floor(s)</div>
+                      <div className="col-sm-6 over"><span className="fa fa-building-o" /> {typeProject}</div>
+                      <div className="col-sm-6 over"><span className="fa fa-area-chart" />{ad.area} m2</div>
+                      <div className="col-sm-6 over"><span className="fa fa-bars" /> {ad.numfloors} Floor(s)</div>
                       <div className="col-sm-6 over"><span className="fa fa-bed" /> {ad.numbedrooms} Bethroom(s)</div>
-                      <div className="col-sm-6 over"><span className="fa fa-compass"/> {ad.direction}</div>
+                      <div className="col-sm-6 over"><span className="fa fa-compass" /> {ad.direction}</div>
                     </div>
                   </div>
                   <div className="col-md-10 col-md-offset-1">

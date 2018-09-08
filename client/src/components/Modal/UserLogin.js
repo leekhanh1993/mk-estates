@@ -224,11 +224,11 @@ class UserLogin extends Component {
                 <ModalFooter>
                     <div className="text-center">
                         <Button
-                            bsStyle="success"
+                            bsStyle="default"
                             onClick={this.onSubmit.bind(this)}
                         >Login</Button>
                         <Button
-                            bsStyle="danger"
+                            bsStyle="default"
                             onClick={this.handleClose.bind(this)}
                         >Close</Button>
                     </div>

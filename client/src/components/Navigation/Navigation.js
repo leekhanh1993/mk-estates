@@ -7,7 +7,6 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayName: '',
             showAddUser: false,
             showUserLogin: false
         }
@@ -34,12 +33,10 @@ class Navigation extends Component {
     }
 
     setMainLogin(displayName, id, idAdmin, isLogIn) {
-        this.props.setMainLogin(id, idAdmin, isLogIn);
-        this.setState({
-            displayName
-        })
+        this.props.setMainLogin(displayName, id, idAdmin, isLogIn);
     }
     setLogOut() {
+        localStorage.clear();
         window.location.reload();
     }
     render() {
@@ -51,7 +48,7 @@ class Navigation extends Component {
                         style={{ cursor: 'pointer' }}
                         className="dropdown-toggle"
                         data-toggle="dropdown">
-                        <span className="fa fa-user-circle-o" /> {this.state.displayName}</a>
+                        <span className="fa fa-user-circle-o" /> {this.props.displayName}</a>
                     <ul className="dropdown-menu">
                         <li><NavLink
                             onClick={this.setLogOut.bind(this)}
@@ -69,7 +66,7 @@ class Navigation extends Component {
                         style={{ cursor: 'pointer' }}
                         className="dropdown-toggle"
                         data-toggle="dropdown">
-                        <span className="fa fa-user-circle-o" /> {this.state.displayName}</a>
+                        <span className="fa fa-user-circle-o" /> {this.props.displayName}</a>
                     <ul className="dropdown-menu">
                         <li><NavLink to="/manageproduct" style={{ cursor: 'pointer' }}>Your Advertisements</NavLink></li>
                         <li><NavLink
