@@ -71,7 +71,7 @@ class Navigation extends Component {
                         <li><NavLink to="/manageproduct" style={{ cursor: 'pointer' }}>Your Advertisements</NavLink></li>
                         <li><NavLink
                             onClick={this.setLogOut.bind(this)}
-                            to="/product"
+                            to="/"
                             style={{ cursor: 'pointer' }}
                         ><span className="glyphicon glyphicon-log-out" /> Log out</NavLink>
                         </li>
