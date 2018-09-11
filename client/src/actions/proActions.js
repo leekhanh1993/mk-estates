@@ -9,7 +9,7 @@ export const setPROsLoading = () => {
 export const getPROs = () => dispatch => {
     dispatch(setPROsLoading());
     axios
-        .get('http://localhost:5000/api/projects')
+        .get('/api/projects')
         .then(res => dispatch({
             type: GET_PROS,
             payload: res.data
@@ -18,7 +18,7 @@ export const getPROs = () => dispatch => {
 
 export const getPRO = id => dispatch => {
     axios
-        .get(`http://localhost:5000/api/projects/${id}`)
+        .get(`/api/projects/${id}`)
         .then(res => dispatch({
             type: GET_PRO,
             payload: res.data
@@ -27,7 +27,7 @@ export const getPRO = id => dispatch => {
 
 export const deletePRO = id => dispatch => {
     axios
-        .delete(`http://localhost:5000/api/projects/${id}`)
+        .delete(`/api/projects/${id}`)
         .then(() => dispatch({
             type: DELETE_PRO,
             payload: id
@@ -36,7 +36,7 @@ export const deletePRO = id => dispatch => {
 
 export const addPRO = pro => dispatch => {
     axios
-        .post('http://localhost:5000/api/projects', pro)
+        .post('/api/projects', pro)
         .then(res => dispatch({
             type: ADD_PRO,
             payload: res.data
@@ -45,6 +45,6 @@ export const addPRO = pro => dispatch => {
 
 export const editPRO = (updatedPRO, id) => dispatch => {
     axios
-        .put(`http://localhost:5000/api/projects/${id}`, updatedPRO)
+        .put(`/api/projects/${id}`, updatedPRO)
         .then(() => { getPROs() })
 }

@@ -10,7 +10,7 @@ export const setUsersLoading = () => {
 export const getUsers = () => dispatch => {
     dispatch(setUsersLoading());
     axios
-        .get('http://localhost:5000/api/users')
+        .get('/api/users')
         .then(res => dispatch({
             type: GET_USERS,
             payload: res.data
@@ -19,7 +19,7 @@ export const getUsers = () => dispatch => {
 
 export const getUser = (id) => dispatch => {
     axios
-        .get(`http://localhost:5000/api/users/${id}`)
+        .get(`/api/users/${id}`)
         .then(res => dispatch({
             type: GET_USER,
             payload: res.data
@@ -28,7 +28,7 @@ export const getUser = (id) => dispatch => {
 
 export const addUser = (user) => dispatch => {
     axios
-        .post(`http://localhost:5000/api/users/`, user)
+        .post(`/api/users/`, user)
         .then(res => dispatch({
             type: ADD_USER,
             payload: res.data
@@ -37,7 +37,7 @@ export const addUser = (user) => dispatch => {
 
 export const deleteUser = (id) => dispatch => {
     axios
-        .delete(`http://localhost:5000/api/users/${id}`)
+        .delete(`/api/users/${id}`)
         .then(() => dispatch({
             type: DELETE_USER,
             payload: id
@@ -46,6 +46,6 @@ export const deleteUser = (id) => dispatch => {
 
 export const editUser = (updatedUser, id) => dispatch => {
     axios
-        .put(`http://localhost:5000/api/users/${id}`, updatedUser)
+        .put(`/api/users/${id}`, updatedUser)
         .then(() => { getUsers() })
 }
