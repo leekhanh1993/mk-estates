@@ -52,7 +52,7 @@ class Navigation extends Component {
                     <ul className="dropdown-menu">
                         <li><NavLink
                             onClick={this.setLogOut.bind(this)}
-                            to="/product"
+                            to="/"
                             style={{ cursor: 'pointer' }}
                         ><span className="glyphicon glyphicon-log-out" /> Log out</NavLink>
                         </li>
