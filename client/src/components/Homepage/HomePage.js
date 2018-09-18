@@ -338,28 +338,28 @@ class HomePage extends Component {
           <div className="row customer-reviews">
             <div className="col-md-6 column">
               <div className="inner-box">
-                <h3><i className="fa fa-user" /> Huynh Cong Minh <span className="verified">(Verified Purchase)</span></h3>
+                <h3><i className="fa fa-user" /> Adam Humble <span className="verified">(Verified Purchase)</span></h3>
                 <p className="date">14 June</p>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
-                <p className="text-justify">My wife and I were able to enjoy again after the first time I used it
-                  It worked really well for me. I am 7 weeks post prostatectomy, no results from medicines. My Friends Suggested me you can use this ED Device Then I use Aronpro Erection System My wife and I were able to enjoy ED Pump results after the first time I used it.
+                <p className="text-justify"> The MK team is awesome. We had the opportunity to purchase our new home and sell our former home while working with them. Our new home agent, Mr.Minh Huynh, made the purchase easy and handled all issues with the builder. Shortly after moving in to our new home, Minh got our previous home sold fast and for $20k+ over our asking price. 
+Enough said. These guys know how to do it!
               </p>
               </div>
             </div>
             <div className="col-md-6 column">
               <div className="inner-box">
-                <h3><i className="fa fa-user" /> Khanh Tran <span className="verified">(Verified Purchase)</span></h3>
+                <h3><i className="fa fa-user" /> Pierce Larkin <span className="verified">(Verified Purchase)</span></h3>
                 <p className="date">26 April</p>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
-                <p className="text-justify">This Erectile Dysfunction pump works! My husband and I are extremely happy with it. We wanted to try it because my husband didn't want to take medication. We are so glad he did. He's amazed at how simple and easy it is to use and how it gives him a very substantial erection. It has renewed our sex life. We like it and highly recommend it.
+                <p className="text-justify">We were very pleased and impressed with Mr. Lee Khanh of MK team during our recent purchase in Saigon. he was very meticulous and prompt and looked out for our best interests.
               </p>
               </div>
             </div>
@@ -372,20 +372,20 @@ class HomePage extends Component {
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
-                <p className="text-justify">I'm 25 and have bad anxiety about sex that causes some things to not work right and that has caused many problems growing up. Wellbeing my age I tend to be drunk when the opportunity arises so that rules out Viagra and other pills that are not even guaranteed to work. With this product I can achieve 100% results in less than 1minute whenever I need it, it hasn't let me down 1 time.
+                <p className="text-justify">Minh was very informative in every step of my home buying process. I had a very personable "on point" experience with Minh Huynh as my realtor! :)
               </p>
               </div>
             </div>
             <div className="col-md-6 column">
               <div className="inner-box">
-                <h3><i className="fa fa-user" /> Thanh Nguyen <span className="verified">(Verified Purchase)</span></h3>
+                <h3><i className="fa fa-user" /> Thach Nguyen <span className="verified">(Verified Purchase)</span></h3>
                 <p className="date">31 March</p>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
-                <p className="text-justify">Yes it works as described and it creates a hard erection. It probably works as goodThis works in minutes. Gives you a Natural Hard ErectionLike a 17 year old you. My wife pumps me up and jumps on. I don't have to resort to Viagra, shots or implants.I had E.D for over 15 years. This pump is good for meIn fact it worked so well it eliminated my need for Viagra &amp;Cialis.
+                <p className="text-justify">This was my first home buying experience. Khanh was my realtor and made the experience super easy and pleasant. I'm so glad I chose to go with this team I will highly recommend them in the future!.
               </p>
               </div>
             </div>
@@ -398,7 +398,7 @@ class HomePage extends Component {
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
                 <span className="fa fa-star checked"></span>
-                <p className="text-justify">I had Bladder and Prostrate removed due to CANCER, then I use Aronpro ED System works Good it help to Maintain the Erection and control the Premature Ejaculation, you can Enjoy as much as long use different type of ring It help to Maintain your Erection Easily
+                <p className="text-justify">As a first time home buyer, I could not have imagined an easier and more informative team to work with. MK team was very helpful from the very beginning and made it a very enjoyable experience. Highly recommend!
               </p>
               </div>
             </div>
